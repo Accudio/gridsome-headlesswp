@@ -114,7 +114,7 @@ class WordPressSource {
     for (const type in data) {
       const options = data[type]
       this.restBases.posts[type] = options.rest_base
-      store.addContentType({
+      store.addCollection({
         typeName: this.createTypeName(type),
         route: this.routes[type] || `/${options.rest_base}/:slug`
       })
@@ -124,7 +124,7 @@ class WordPressSource {
   async getUsers (store) {
     const { data } = await this.fetch('wp/v2/users')
 
-    const authors = store.addContentType({
+    const authors = store.addCollection({
       typeName: this.createTypeName(TYPE_AUTHOR),
       route: this.routes.author
     })
@@ -145,7 +145,7 @@ class WordPressSource {
   async getMenus (store) {
     const { data } = await this.fetch('menus/v1/menus')
 
-    const menus = store.addContentType({
+    const menus = store.addCollection({
       typeName: this.createTypeName('menu')
     })
 
@@ -163,7 +163,7 @@ class WordPressSource {
   async getOptions (store) {
     const { data } = await this.fetch('accudio/v1/options')
 
-    const options = store.addContentType({
+    const options = store.addCollection({
       typeName: this.createTypeName('option')
     })
     const fields = this.normalizeFields(data)
@@ -178,7 +178,7 @@ class WordPressSource {
 
     for (const type in data) {
       const options = data[type]
-      const taxonomy = store.addContentType({
+      const taxonomy = store.addCollection({
         typeName: this.createTypeName(type),
         route: this.routes[type] || `/${options.rest_base}/:slug`
       })
@@ -287,7 +287,7 @@ class WordPressSource {
   }
 
   async getPosts (store) {
-    const { getContentType, createReference } = store
+    const { getCollection, createReference } = store
 
     const AUTHOR_TYPE_NAME = this.createTypeName(TYPE_AUTHOR)
     const ATTACHEMENT_TYPE_NAME = this.createTypeName(TYPE_ATTACHMENT)
@@ -296,7 +296,7 @@ class WordPressSource {
 
       const restBase = this.restBases.posts[type]
       const typeName = this.createTypeName(type)
-      const posts = getContentType(typeName)
+      const posts = getCollection(typeName)
 
       const data = await this.fetchPaged(`wp/v2/${restBase}?_embed`)
 
