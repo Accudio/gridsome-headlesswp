@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@gridsome/plugin-sitemap": "^0.2.2",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "camelcase": "^5.3.1",
     "fs": "0.0.1-security",
     "gridsome": "^0.7.10",
